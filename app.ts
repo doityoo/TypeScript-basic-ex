@@ -67,7 +67,13 @@ const human1 = {
 // 정확한 값을 가지느 타입이다
 // 리터럴의 단점은 개발자가 타입의 값을 기억해놔야 한다는 것.
 // 이를 보완하기 위해서 리터럴 타입과 유니언타입을 같이 쓸수 있다 아래 코드처럼.(값이 2개일경우 가능, 하드코딩 임)
-  function combine (input1: number | string, input2: number | string, resultConversion: 'as-number' | 'as-text') {
+// 사용자 정의 타입
+
+  type combinable = number | string;
+  type conversionDiscriptor = 'as-number' | 'as-text';
+
+  function combine (input1: combinable, input2: combinable, resultConversion: conversionDiscriptor) {
+  // function combine (input1: number | string, input2: number | string, resultConversion: 'as-number' | 'as-text') {
   // function combine (input1: number | string, input2: number | string, resultConversion: string) {
     let result;
     if(typeof input1 === 'number' && typeof input2 === 'number' || resultConversion === 'as-number') {

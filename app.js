@@ -44,10 +44,9 @@ var human1 = {
     hobbies: ['sports', 'cooking'],
     role: [1, 'author']
 };
-// 리터럴 타입
-// 특정 숫자나 매개변수가 아니다
-// 정확한 값을 가지느 타입이다
 function combine(input1, input2, resultConversion) {
+    // function combine (input1: number | string, input2: number | string, resultConversion: 'as-number' | 'as-text') {
+    // function combine (input1: number | string, input2: number | string, resultConversion: string) {
     var result;
     if (typeof input1 === 'number' && typeof input2 === 'number' || resultConversion === 'as-number') {
         result = +input1 + +input2;
@@ -55,6 +54,7 @@ function combine(input1, input2, resultConversion) {
     else {
         result = input1.toString() + input2.toString();
     }
+    // 아래 if문의 코드를 위 if문에 +, toString()를 사용해서 리팩토링할 수 있다.
     // if(resultConversion === "as-number") {
     //   // +는 값을 숫자로 변환해주는 기호
     //   return +result;
@@ -67,6 +67,6 @@ function combine(input1, input2, resultConversion) {
 var combineAges = combine(30, 20, "as-number");
 console.log(combineAges); // 50
 var combineStringAges = combine("30", "20", "as-number");
-console.log(combineStringAges);
+console.log(combineStringAges); // 50
 var combineNames = combine("intae", "willy", "as-text");
 console.log(combineNames); // intaewilly
