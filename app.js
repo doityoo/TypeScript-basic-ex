@@ -70,3 +70,9 @@ var combineStringAges = combine("30", "20", "as-number");
 console.log(combineStringAges); // 50
 var combineNames = combine("intae", "willy", "as-text");
 console.log(combineNames); // intaewilly
+function greet(user) {
+    console.log('Hi, I am ' + user.name);
+}
+function isOlder(user, checkAge) {
+    return checkAge > user.age;
+}

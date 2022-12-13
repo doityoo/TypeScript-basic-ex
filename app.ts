@@ -68,37 +68,52 @@ const human1 = {
 // 리터럴의 단점은 개발자가 타입의 값을 기억해놔야 한다는 것.
 // 이를 보완하기 위해서 리터럴 타입과 유니언타입을 같이 쓸수 있다 아래 코드처럼.(값이 2개일경우 가능, 하드코딩 임)
 // 사용자 정의 타입
-
-  type combinable = number | string;
-  type conversionDiscriptor = 'as-number' | 'as-text';
-
-  function combine (input1: combinable, input2: combinable, resultConversion: conversionDiscriptor) {
-  // function combine (input1: number | string, input2: number | string, resultConversion: 'as-number' | 'as-text') {
-  // function combine (input1: number | string, input2: number | string, resultConversion: string) {
-    let result;
-    if(typeof input1 === 'number' && typeof input2 === 'number' || resultConversion === 'as-number') {
-      result = +input1 + +input2;
-    } else {
-      result = input1.toString() + input2.toString();
-    }
-
-    // 아래 if문의 코드를 위 if문에 +, toString()를 사용해서 리팩토링할 수 있다.
-    // if(resultConversion === "as-number") {
-    //   // +는 값을 숫자로 변환해주는 기호
-    //   return +result;
-    // } else {
-    //   // .toString()는 들어오는 값을 문자열로 변환해주는 메서드 
-    //   return result.toString();
-    // }
-    return result;
+type combinable = number | string;
+type conversionDiscriptor = 'as-number' | 'as-text';
+function combine (input1: combinable, input2: combinable, resultConversion: conversionDiscriptor) {
+// function combine (input1: number | string, input2: number | string, resultConversion: 'as-number' | 'as-text') {
+// function combine (input1: number | string, input2: number | string, resultConversion: string) {
+  let result;
+  if(typeof input1 === 'number' && typeof input2 === 'number' || resultConversion === 'as-number') {
+    result = +input1 + +input2;
+  } else {
+    result = input1.toString() + input2.toString();
   }
+  // 아래 if문의 코드를 위 if문에 +, toString()를 사용해서 리팩토링할 수 있다.
+  // if(resultConversion === "as-number") {
+  //   // +는 값을 숫자로 변환해주는 기호
+  //   return +result;
+  // } else {
+  //   // .toString()는 들어오는 값을 문자열로 변환해주는 메서드 
+  //   return result.toString();
+  // }
+  return result;
+}
+const combineAges = combine(30, 20, "as-number")
+console.log(combineAges); // 50
+const combineStringAges = combine("30","20","as-number")
+console.log(combineStringAges); // 50
+const combineNames = combine("intae", "willy", "as-text")
+console.log(combineNames); // intaewilly
 
-  const combineAges = combine(30, 20, "as-number")
-  console.log(combineAges); // 50
 
-  const combineStringAges = combine("30","20","as-number")
-  console.log(combineStringAges); // 50
 
-  const combineNames = combine("intae", "willy", "as-text")
-  console.log(combineNames); // intaewilly
 
+// 객체 타입에도 별칭을 붙일 수 있음
+// type User = { name: string; age: number };
+// const u1: User = { name: 'Max', age: 30 }; // this works!
+// //코드 수정 전
+// function greet(user: { name: string; age: number }) {
+//   console.log('Hi, I am ' + user.name);
+// }
+// function isOlder(user: { name: string; age: number }, checkAge: number) {
+//   return checkAge > user.age;
+// }
+//코드 수정 후
+type User = { name: string; age: number };
+function greet(user: User) {
+  console.log('Hi, I am ' + user.name);
+}
+function isOlder(user: User, checkAge: number) {
+  return checkAge > user.age;
+}
