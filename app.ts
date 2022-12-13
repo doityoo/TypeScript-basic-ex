@@ -117,3 +117,11 @@ function greet(user: User) {
 function isOlder(user: User, checkAge: number) {
   return checkAge > user.age;
 }
+
+
+
+//타입 테스트
+// type User = { name: string } | string; // User타입에 {} 혹은 string으로 타입을 받을수 있는 유니언타입
+// let u1: User = {name: 'Max'}; // u1 변수에 User 타입에 name은 'Max'가 키값으로 할당됨
+// u1 = 'Michael'; // let 변수는 다른 값 혹은 타입을 할당 할수 있음.
+// 위 코드는 이상 없음
