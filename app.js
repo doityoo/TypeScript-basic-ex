@@ -49,20 +49,20 @@ var human1 = {
 // 정확한 값을 가지느 타입이다
 function combine(input1, input2, resultConversion) {
     var result;
-    if (typeof input1 === 'number' && typeof input2 === 'number') {
-        result = input1 + input2;
+    if (typeof input1 === 'number' && typeof input2 === 'number' || resultConversion === 'as-number') {
+        result = +input1 + +input2;
     }
     else {
         result = input1.toString() + input2.toString();
     }
-    if (resultConversion === "as-number") {
-        // +는 값을 숫자로 변환해주는 기호
-        return +result;
-    }
-    else {
-        // .toString()는 들어오는 값을 문자열로 변환해주는 메서드 
-        return result.toString();
-    }
+    // if(resultConversion === "as-number") {
+    //   // +는 값을 숫자로 변환해주는 기호
+    //   return +result;
+    // } else {
+    //   // .toString()는 들어오는 값을 문자열로 변환해주는 메서드 
+    //   return result.toString();
+    // }
+    return result;
 }
 var combineAges = combine(30, 20, "as-number");
 console.log(combineAges); // 50

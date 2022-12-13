@@ -65,13 +65,18 @@ const human1 = {
 // 리터럴 타입
 // 특정 숫자나 매개변수가 아니다
 // 정확한 값을 가지느 타입이다
-  function combine (input1: number | string, input2: number | string, resultConversion: string) {
+// 리터럴의 단점은 개발자가 타입의 값을 기억해놔야 한다는 것.
+// 이를 보완하기 위해서 리터럴 타입과 유니언타입을 같이 쓸수 있다 아래 코드처럼.(값이 2개일경우 가능, 하드코딩 임)
+  function combine (input1: number | string, input2: number | string, resultConversion: 'as-number' | 'as-text') {
+  // function combine (input1: number | string, input2: number | string, resultConversion: string) {
     let result;
     if(typeof input1 === 'number' && typeof input2 === 'number' || resultConversion === 'as-number') {
       result = +input1 + +input2;
     } else {
       result = input1.toString() + input2.toString();
     }
+
+    // 아래 if문의 코드를 위 if문에 +, toString()를 사용해서 리팩토링할 수 있다.
     // if(resultConversion === "as-number") {
     //   // +는 값을 숫자로 변환해주는 기호
     //   return +result;
@@ -86,7 +91,7 @@ const human1 = {
   console.log(combineAges); // 50
 
   const combineStringAges = combine("30","20","as-number")
-  console.log(combineStringAges);
+  console.log(combineStringAges); // 50
 
   const combineNames = combine("intae", "willy", "as-text")
   console.log(combineNames); // intaewilly
