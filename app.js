@@ -15,3 +15,17 @@ combineValues = add;
 // combineValues = printResult; // printResult도 함수이지만 함수를 실행할때 인자의 구성이 맞지 않으면 Error가 난다. 컴파일 과정에서는 에러 못  잡음
 console.log(combineValues(5, 8));
 var combineValues2; // 이렇게 콜백 형식도 가능
+// 콜백 함수 타입
+function addHandler(n1, n2, cd) {
+    // 콜백함수에서 반환 값을 void로 지정했기 때문에 addHandler의 반환값이 
+    var result = n1 + n2;
+    cd(result);
+}
+addHandler(10, 20, function (result) {
+    console.log(result);
+    return result;
+});
+function arrayMutate(number, cb) {
+    return number.map(cb);
+}
+console.log(arrayMutate([1, 2, 3], function (f) { return f * 10; })); // 

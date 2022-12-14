@@ -22,3 +22,27 @@ combineValues = add;
 console.log(combineValues(5, 8));
 
 let combineValues2: (a: string, b: () => number) => string // 이렇게 콜백 형식도 가능
+
+
+
+
+// 콜백 함수 타입
+function addHandler(n1: number, n2: number, cd: (num: number) => void) { // 이함수의 리턴 타입은 void
+  // 콜백함수에서 반환 값을 void로 지정했기 때문에 addHandler의 반환값이 
+  let result = n1 + n2;
+  cd(result);
+}
+addHandler(10, 20, (result) => {
+  console.log(result);
+  return result;
+});
+// 배열 바꾸는 콜백 함수
+// function arrayMutate (number: number[], cb:(mutate: number) => number): number[] {
+//   return number.map(cb);
+// }
+// 함수 타입을 지정하기
+type MutateFunction = (v:number) => number;
+function arrayMutate (number: number[], cb:MutateFunction): number[] {
+  return number.map(cb);
+}
+console.log(arrayMutate([1,2,3], (f) => f* 10)); // 
