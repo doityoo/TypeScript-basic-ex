@@ -1,78 +1,17 @@
-function add(n1, n2, showResult, phrase) {
-    if (showResult) {
-        console.log(n1 + n2);
-    }
-    else {
-        return n1 + n2;
-    }
+function add(n1, n2) {
+    // function add (n1: number, n2: number): number { // 명시적으로 반환타입을 쓸수 있지만 변수와 마찬가지로 TS가 반환 타입을 추론하는게 가장 좋다.
+    return n1 + n2;
 }
-var number1 = 5;
-var number2 = 2.8;
-var printResult = true;
-var resultPhrase = "Result is : ";
-add(number1, number2, printResult, resultPhrase);
-var person = {
-    name: 'Intae',
-    age: 30,
-    hobbies: ['sports', 'cooking']
-};
-var favoriteActivities;
-favoriteActivities = ['sports']; // number는 올수 없다.
-console.log('Person name is: ', person.name);
-for (var _i = 0, _a = person.hobbies; _i < _a.length; _i++) {
-    var hobby = _a[_i];
-    console.log(hobby.toUpperCase());
+function printResult(num) {
+    // printResult의 함수는 반환 타입은 void다. void는 undefined를 반환한다.
+    console.log("result : " + num);
 }
-// hobby에는 문자열외에도 다른 타입을 쓸수 있다. 왜?
-// 즉 person.hobbies를 입력하면 TS는 문자열의 배열이라고 인식한다.
-// 반면 hobby는 문자열로 정확하게 인식한다.
-// 배열의 튜플타입 설정하기
-var human = {
-    name: 'Intae',
-    age: 30,
-    hobbies: ['sports', 'cooking'],
-    role: [1, 'author']
-};
-human.role.push("admin"); // push는 가능하다(길이가 늘어남)
-console.log(human.role);
-// enum{ NEW, OLD } 열거형 타입
-// 명시적인 타입 배정을 없애고 추론으로 설정(human 변수에서) 
-//  
-var human1 = {
-    name: 'Intae',
-    age: 30,
-    hobbies: ['sports', 'cooking'],
-    role: [1, 'author']
-};
-function combine(input1, input2, resultConversion) {
-    // function combine (input1: number | string, input2: number | string, resultConversion: 'as-number' | 'as-text') {
-    // function combine (input1: number | string, input2: number | string, resultConversion: string) {
-    var result;
-    if (typeof input1 === 'number' && typeof input2 === 'number' || resultConversion === 'as-number') {
-        result = +input1 + +input2;
-    }
-    else {
-        result = input1.toString() + input2.toString();
-    }
-    // 아래 if문의 코드를 위 if문에 +, toString()를 사용해서 리팩토링할 수 있다.
-    // if(resultConversion === "as-number") {
-    //   // +는 값을 숫자로 변환해주는 기호
-    //   return +result;
-    // } else {
-    //   // .toString()는 들어오는 값을 문자열로 변환해주는 메서드 
-    //   return result.toString();
-    // }
-    return result;
-}
-var combineAges = combine(30, 20, "as-number");
-console.log(combineAges); // 50
-var combineStringAges = combine("30", "20", "as-number");
-console.log(combineStringAges); // 50
-var combineNames = combine("intae", "willy", "as-text");
-console.log(combineNames); // intaewilly
-function greet(user) {
-    console.log('Hi, I am ' + user.name);
-}
-function isOlder(user, checkAge) {
-    return checkAge > user.age;
-}
+console.log(printResult(add(5, 8))); // undefined
+// 함수 타입
+// let combineValues; //any
+// let combineValues: Function; // Function은 첫글자는 대문자를 써야 함, combineValues를 함수타입으로 지정 
+var combineValues; // 반환값이 number이면서 매개벼수에 a,b가 각각 number를 받는 함수 타입 지정, printResult를 할당시 에러 발생
+combineValues = add;
+// combineValues = printResult; // printResult도 함수이지만 함수를 실행할때 인자의 구성이 맞지 않으면 Error가 난다. 컴파일 과정에서는 에러 못  잡음
+console.log(combineValues(5, 8));
+var combineValues2; // 이렇게 콜백 형식도 가능
