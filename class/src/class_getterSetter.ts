@@ -1,20 +1,23 @@
 class Department {
   // private readonly id: string;
   // private name: string;
-  // private에서 protected로 변경
   protected employees: string[] = [];
+
   constructor(private readonly id: string, public name: string) {
     // this.id = id;
     // this.name = n;
   }
+
   describe(this: Department) {
     console.log(`Department (${this.id}): ${this.name}`);
   }
+
   addEmployee(employee: string) {
     // validation etc
     // this.id = 'd2';
     this.employees.push(employee);
   }
+
   printEmployeeInformation() {
     console.log(this.employees.length);
     console.log(this.employees);
@@ -30,28 +33,49 @@ class ITDepartment extends Department {
 }
 
 class AccountingDepartment extends Department {
+  private lastReport: string;
+
+  // .을 찍어서 lastReport에 접근 할수 없다는데 왜? 같은 클래스인데 왜 접근이 안되지? private는 같은 클래스에서 접근 가능한거 아닌가?
+  // get을 사용해서 mostRecentReport 메서드를 만들고 this.lastReport에 접근 할 수 있다.
+  // getters와 setters의 메서드 명은 같다.
+  get mostRecentReport() {
+    if (this.lastReport) {
+      return this.lastReport;
+    }
+    throw new Error('No report found.');
+  }
+
+  set mostRecentReport(value: string) {
+    if (!value) {
+      throw new Error('Please pass in a valid value!');
+    }
+    this.addReport(value);
+  }
+
   constructor(id: string, private reports: string[]) {
     super(id, 'Accounting');
+    this.lastReport = reports[0];
   }
+
   addEmployee(name: string) {
-    // name이 Max면 반환 없고, Max가 아니면 employees에 추가
-    // 일반적으로 상위 class 함수에서 사용한 메서드에 private를 사용했다면 해당 함수 밖에서는 사용할수 없다.
-    // 하지만 private를 사용하면서 접근가능하도록 하고자 한다면?
-    // 상위 함수에서 사용한 private 키워드를 protected로 바꾸면 된다.
     if (name === 'Max') {
       return;
     }
     this.employees.push(name);
   }
+
   addReport(text: string) {
     this.reports.push(text);
+    this.lastReport = text;
   }
+
   printReports() {
     console.log(this.reports);
   }
 }
 
 const it = new ITDepartment('d1', ['Max']);
+
 it.addEmployee('Max');
 it.addEmployee('Manu');
 
@@ -60,12 +84,18 @@ it.addEmployee('Manu');
 it.describe();
 it.name = 'NEW NAME';
 it.printEmployeeInformation();
+
 console.log(it);
 
 const accounting = new AccountingDepartment('d2', []);
+
+accounting.mostRecentReport = 'Year End Report'; // mostRecentReport에 ()를 붙여 함수 실행이 아닌 일반 속성처럼 접근 한다.
 accounting.addReport('Something went wrong...');
+console.log(accounting.mostRecentReport);
+
 accounting.addEmployee('Max');
 accounting.addEmployee('Manu');
+
 accounting.printReports();
 accounting.printEmployeeInformation();
 
