@@ -31,5 +31,6 @@ class Department {
 }
 
 // 이런식으로 해당 클래스를 바로 사용할 수 있다.
+// 해당 클래스 내에서 this로는 접근 할수 없다. 
 const employee1 = Department.createEmployee('Willy');
 console.log(employee1, Department.fiscalYear); // {name : 'Willy'} 2022
